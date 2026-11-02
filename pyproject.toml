@@ -1,0 +1,49 @@
+[project]
+name = "fileotter"
+version = "0.1.0"
+description = "Convert and compress any file on your system with a Strands harness agent."
+readme = "README.md"
+authors = [
+    { name = "Saksham Saraswat", email = "sakshamsaraswat0208@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "openpyxl>=3.1.5",
+    "pillow>=13.0.0",
+    "prompt-toolkit>=3.0.53",
+    "pypdf>=6.21.4",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.2.4",
+    "rich>=15.0.0",
+    "strands-harness[anthropic]>=0.3.3",
+]
+
+[project.optional-dependencies]
+# Amazon Bedrock works out of the box; install an extra to use another model provider.
+anthropic = ["strands-harness[anthropic]"]
+openai = ["strands-harness[openai]"]
+gemini = ["strands-harness[gemini]"]
+ollama = ["strands-harness[ollama]"]
+
+[project.scripts]
+fileotter = "fileotter:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
